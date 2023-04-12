@@ -21,6 +21,6 @@ Server-side library that allows for easy user interface development.
 [[dependencies.gooeylibs2]]
    modId="minecraft"
    mandatory=true
-   versionRange="[1.18.2]"
+   versionRange="[1.19.2]"
    ordering="NONE"
    side="SERVER"
