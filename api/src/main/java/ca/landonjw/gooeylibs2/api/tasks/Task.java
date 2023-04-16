@@ -6,6 +6,15 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public interface Task {
+    boolean isAsync();
+
+    long delay();
+
+    long iterations();
+
+    Consumer<Task> executor();
+
+    boolean infinite();
 
     boolean isExpired();
 
@@ -16,6 +25,8 @@ public interface Task {
     }
 
     interface TaskBuilder {
+        TaskBuilder async();
+
         TaskBuilder execute(@Nonnull Runnable runnable);
 
         TaskBuilder execute(@Nonnull Consumer<Task> consumer);
