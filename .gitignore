@@ -1,15 +1,23 @@
-/build/
-/run/
-/.idea/
-/.gradle/
-/api/.gradle/
-/api/build/
-/build-logic/.gradle/
-/build-logic/build/
-/fabric/.gradle/
-/fabric/build/
-/fabric/run/
-/forge/.gradle/
-/forge/build/
-/forge/run/
-*.iml
+/*.iml
+### Gradle template
+.gradle
+**/build/
+!src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
