@@ -2,7 +2,7 @@ package ca.landonjw.gooeylibs2.api.button;
 
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class PlaceholderButton implements Button {

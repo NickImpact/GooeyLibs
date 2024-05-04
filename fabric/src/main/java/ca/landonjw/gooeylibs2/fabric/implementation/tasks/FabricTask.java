@@ -4,7 +4,7 @@ import ca.landonjw.gooeylibs2.api.tasks.Task;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Consumer;
 

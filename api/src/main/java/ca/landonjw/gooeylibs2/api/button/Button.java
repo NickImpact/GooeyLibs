@@ -3,7 +3,7 @@ package ca.landonjw.gooeylibs2.api.button;
 import ca.landonjw.gooeylibs2.api.data.Subject;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public interface Button extends Subject<Button> {
 

@@ -5,7 +5,7 @@ import ca.landonjw.gooeylibs2.api.tasks.Task;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class ForgeTask implements Task {

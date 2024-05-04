@@ -1,6 +1,6 @@
 package ca.landonjw.gooeylibs2.api.data;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public abstract class UpdateEmitter<T> implements Subject<T> {

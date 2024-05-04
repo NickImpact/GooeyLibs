@@ -3,7 +3,7 @@ package ca.landonjw.gooeylibs2.api.button;
 import ca.landonjw.gooeylibs2.api.data.UpdateEmitter;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import static java.util.Objects.requireNonNull;
 

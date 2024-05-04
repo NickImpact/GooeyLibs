@@ -5,8 +5,8 @@ import ca.landonjw.gooeylibs2.api.template.types.InventoryTemplate;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
