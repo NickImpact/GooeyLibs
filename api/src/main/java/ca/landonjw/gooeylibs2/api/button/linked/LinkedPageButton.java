@@ -8,8 +8,8 @@ import ca.landonjw.gooeylibs2.api.page.Page;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class LinkedPageButton extends GooeyButton {

@@ -2,7 +2,7 @@ package ca.landonjw.gooeylibs2.api.data;
 
 import com.google.common.collect.Maps;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Map;
 import java.util.function.Consumer;
 

@@ -4,7 +4,7 @@ import ca.landonjw.gooeylibs2.api.data.UpdateEmitter;
 import ca.landonjw.gooeylibs2.api.template.slot.TemplateSlotDelegate;
 import com.google.common.collect.ImmutableList;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 
 public abstract class Template extends UpdateEmitter<Template> {

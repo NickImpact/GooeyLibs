@@ -5,8 +5,8 @@ import ca.landonjw.gooeylibs2.api.tasks.Task;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility functions that are used to conveniently modify player's inventories when using GooeyLibs pages.
