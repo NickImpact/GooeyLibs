@@ -1,4 +1,6 @@
 /*.iml
+.idea
+**/run/
 ### Gradle template
 .gradle
 **/build/
