@@ -1,20 +1,23 @@
 package ca.landonjw.gooeylibs2.api.button;
 
 import com.google.common.collect.Lists;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.util.Unit;
+import net.minecraft.world.item.AdventureModePredicate;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.component.Unbreakable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -122,36 +125,89 @@ public class GooeyButton extends ButtonBase {
                 MutableComponent result = Component.empty()
                         .setStyle(Style.EMPTY.withItalic(false))
                         .append(this.title);
-                display.setHoverName(result);
+                display.applyComponents(DataComponentPatch.builder()
+                        .set(DataComponents.CUSTOM_NAME, result)
+                        .build());
             }
 
             if (!lore.isEmpty()) {
-                ListTag nbtLore = new ListTag();
-                for (Component line : lore) {
-                    MutableComponent result = Component.empty()
-                            .setStyle(Style.EMPTY.withItalic(false))
-                            .append(line);
-                    nbtLore.add(StringTag.valueOf(Component.Serializer.toJson(result)));
-                }
-                display.getOrCreateTagElement("display").put("Lore", nbtLore);
+                display.applyComponents(DataComponentPatch.builder()
+                        .set(DataComponents.LORE, new ItemLore(Collections.emptyList(), lore.stream().map((it) ->
+                                Component.empty()
+                                .setStyle(Style.EMPTY.withItalic(false))
+                                .append(it)).collect(Collectors.toList())))
+                        .build());
             }
 
-            if (!this.hideFlags.isEmpty() && display.hasTag())
-            {
-                if (this.hideFlags.contains(FlagType.Reforged) || this.hideFlags.contains(FlagType.All))
-                {
-                    display.getOrCreateTag().putString("tooltip", "");
+            if (!this.hideFlags.isEmpty()) {
+                if (this.hideFlags.contains(FlagType.Hide_Tooltip) || this.hideFlags.contains(FlagType.All)) {
+                    display.applyComponents(DataComponentPatch.builder()
+                            .set(DataComponents.HIDE_TOOLTIP, Unit.INSTANCE)
+                            .build());
                 }
-                if (this.hideFlags.contains(FlagType.Generations) || this.hideFlags.contains(FlagType.All))
-                {
-                    display.getOrCreateTag().putBoolean("HideTooltip", true);
+                if (this.hideFlags.contains(FlagType.Enchantments) || this.hideFlags.contains(FlagType.All)) {
+                    display.applyComponents(DataComponentPatch.builder()
+                            .set(DataComponents.ENCHANTMENTS, display.getEnchantments().withTooltip(false))
+                            .build());
                 }
-                int value = 0;
-                for (FlagType flag : this.hideFlags)
-                {
-                    value += flag.getValue();
+                if (this.hideFlags.contains(FlagType.Attribute_Modifiers) || this.hideFlags.contains(FlagType.All)) {
+                    display.applyComponents(DataComponentPatch.builder()
+                            .set(DataComponents.ATTRIBUTE_MODIFIERS, display.getOrDefault(
+                                            DataComponents.ATTRIBUTE_MODIFIERS,
+                                            ItemAttributeModifiers.EMPTY
+                                    ).withTooltip(false))
+                            .build());
                 }
-                display.getOrCreateTag().putInt("HideFlags", value);
+                if (this.hideFlags.contains(FlagType.Unbreakable) || this.hideFlags.contains(FlagType.All)) {
+                    Unbreakable unbreakable = display.get(DataComponents.UNBREAKABLE);
+                    if (unbreakable != null) {
+                        display.applyComponents(DataComponentPatch.builder()
+                                .set(DataComponents.UNBREAKABLE, unbreakable.withTooltip(false))
+                                .build());
+                    }
+                }
+                if (this.hideFlags.contains(FlagType.Can_Break) || this.hideFlags.contains(FlagType.All)) {
+                    AdventureModePredicate canBreak = display.get(DataComponents.CAN_BREAK);
+                    if (canBreak != null) {
+                        display.applyComponents(DataComponentPatch.builder()
+                                .set(DataComponents.CAN_BREAK, canBreak.withTooltip(false))
+                                .build());
+                    }
+                }
+                if (this.hideFlags.contains(FlagType.Can_Place_On) || this.hideFlags.contains(FlagType.All)) {
+                    AdventureModePredicate canPlaceOn = display.get(DataComponents.CAN_PLACE_ON);
+                    if (canPlaceOn != null) {
+                        display.applyComponents(DataComponentPatch.builder()
+                                .set(DataComponents.CAN_PLACE_ON, canPlaceOn.withTooltip(false))
+                                .build());
+                    }
+                }
+                if (this.hideFlags.contains(FlagType.Stored_Enchantments) || this.hideFlags.contains(FlagType.All)) {
+                    display.applyComponents(DataComponentPatch.builder()
+                            .set(DataComponents.STORED_ENCHANTMENTS, display.getEnchantments().withTooltip(false))
+                            .build());
+                }
+                if (this.hideFlags.contains(FlagType.Dyed_Color) || this.hideFlags.contains(FlagType.All)) {
+                    DyedItemColor dyedColor = display.get(DataComponents.DYED_COLOR);
+                    if (dyedColor != null) {
+                        display.applyComponents(DataComponentPatch.builder()
+                                .set(DataComponents.DYED_COLOR, dyedColor.withTooltip(false))
+                                .build());
+                    }
+                }
+                if (this.hideFlags.contains(FlagType.Trim) || this.hideFlags.contains(FlagType.All)) {
+                    ArmorTrim trim = display.get(DataComponents.TRIM);
+                    if (trim != null) {
+                        display.applyComponents(DataComponentPatch.builder()
+                                .set(DataComponents.TRIM, trim.withTooltip(false))
+                                .build());
+                    }
+                }
+                if (this.hideFlags.contains(FlagType.Hide_Additional_Tooltip) || this.hideFlags.contains(FlagType.All)) {
+                    display.applyComponents(DataComponentPatch.builder()
+                            .set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE)
+                            .build());
+                }
             }
             return display;
         }
