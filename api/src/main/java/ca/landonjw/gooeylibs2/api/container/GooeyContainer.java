@@ -173,6 +173,7 @@ public class GooeyContainer extends AbstractContainerMenu {
     }
 
     public void open() {
+        if (player.containerMenu == this) return;
         player.doCloseContainer();
         player.containerMenu = this;
         player.containerCounter = player.containerMenu.containerId;
