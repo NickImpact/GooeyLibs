@@ -25,6 +25,7 @@ import ca.landonjw.gooeylibs2.api.button.ButtonAction;
 import ca.landonjw.gooeylibs2.api.button.ButtonClick;
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import ca.landonjw.gooeylibs2.api.button.moveable.Movable;
+import ca.landonjw.gooeylibs2.api.button.moveable.MovableButton;
 import ca.landonjw.gooeylibs2.api.button.moveable.MovableButtonAction;
 import ca.landonjw.gooeylibs2.api.page.Page;
 import ca.landonjw.gooeylibs2.api.page.PageAction;
@@ -443,8 +444,7 @@ public class GooeyContainer extends AbstractContainerMenu {
         }
         else {
             setButton(slot, cursorButton);
-            cursorButton = null;
-            setPlayersCursor(ItemStack.EMPTY);
+            setCarriedButton(null);
 
             if (clickType == ClickType.QUICK_CRAFT) {
                 this.updateAllContainerContents();
@@ -542,4 +542,8 @@ public class GooeyContainer extends AbstractContainerMenu {
         }
     }
 
+    public void setCarriedButton(MovableButton button) {
+        cursorButton = button;
+        setPlayersCursor(button == null ? ItemStack.EMPTY : button.getDisplay());
+    }
 }
