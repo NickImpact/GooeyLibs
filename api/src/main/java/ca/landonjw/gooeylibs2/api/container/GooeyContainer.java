@@ -542,7 +542,7 @@ public class GooeyContainer extends AbstractContainerMenu {
         }
     }
 
-    public void setCarriedButton(MovableButton button) {
+    public void setCarriedButton(Button button) {
         cursorButton = button;
         setPlayersCursor(button == null ? ItemStack.EMPTY : button.getDisplay());
     }
