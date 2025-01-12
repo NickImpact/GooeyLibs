@@ -25,7 +25,6 @@ import ca.landonjw.gooeylibs2.api.button.ButtonAction;
 import ca.landonjw.gooeylibs2.api.button.ButtonClick;
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import ca.landonjw.gooeylibs2.api.button.moveable.Movable;
-import ca.landonjw.gooeylibs2.api.button.moveable.MovableButton;
 import ca.landonjw.gooeylibs2.api.button.moveable.MovableButtonAction;
 import ca.landonjw.gooeylibs2.api.page.Page;
 import ca.landonjw.gooeylibs2.api.page.PageAction;
@@ -407,9 +406,11 @@ public class GooeyContainer extends AbstractContainerMenu {
             return;
         }
 
+        Button original = null;
         // Handle collision
         if (isSlotOccupied(slot)) {
             setPlayersCursor(cursorButton.getDisplay());
+            original = getButton(slot);
 
             /*
              * When a quick move is performed, it will apply slot clicks to all identical items, causing
@@ -437,7 +438,7 @@ public class GooeyContainer extends AbstractContainerMenu {
             }
 
             setPlayersCursor(cursorButton.getDisplay());
-            updateSlotStack(targetTemplateSlot, ItemStack.EMPTY, template instanceof InventoryTemplate);
+            updateSlotStack(targetTemplateSlot, original == null ? ItemStack.EMPTY : original.getDisplay(), template instanceof InventoryTemplate);
             if (clickType == ClickType.QUICK_CRAFT) {
                 this.updateAllContainerContents();
             }
