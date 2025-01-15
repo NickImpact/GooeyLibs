@@ -377,7 +377,7 @@ public class GooeyContainer extends AbstractContainerMenu {
         }
 
         ButtonClick click = getButtonClickType(clickType, dragType);
-        MovableButtonAction action = new MovableButtonAction(player, click, clickedButton, template, page, slot);
+        MovableButtonAction action = new MovableButtonAction(player, click, clickedButton, page.getTemplate(), page, slot);
         clickedButton.onClick(action);
         ((Movable) clickedButton).onPickup(action);
 
@@ -427,7 +427,7 @@ public class GooeyContainer extends AbstractContainerMenu {
             }
         }
         ButtonClick click = getButtonClickType(clickType, dragType);
-        MovableButtonAction action = new MovableButtonAction(player, click, cursorButton, template, page, slot);
+        MovableButtonAction action = new MovableButtonAction(player, click, cursorButton, page.getTemplate(), page, slot);
         cursorButton.onClick(action);
         ((Movable) cursorButton).onDrop(action);
 
