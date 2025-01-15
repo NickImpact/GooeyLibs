@@ -437,7 +437,7 @@ public class GooeyContainer extends AbstractContainerMenu {
                 return;
             }
 
-            setPlayersCursor(cursorButton.getDisplay());
+            setPlayersCursor(cursorButton == null ? ItemStack.EMPTY : cursorButton.getDisplay());
             updateSlotStack(targetTemplateSlot, original == null ? ItemStack.EMPTY : original.getDisplay(), template instanceof InventoryTemplate);
             if (clickType == ClickType.QUICK_CRAFT) {
                 this.updateAllContainerContents();
