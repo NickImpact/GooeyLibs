@@ -468,7 +468,7 @@ public class GooeyContainer extends AbstractContainerMenu {
     }
 
     private void updateAllContainerContents() {
-        this.refresh(this.player, this.player.containerMenu, this.getItems());
+        this.refresh(this.player, this.player.containerMenu, NonNullList.of(ItemStack.EMPTY, this.getItems().subList(0, page.getTemplate().getSize()).toArray(ItemStack[]::new)));
 
         /*
          * Detects change in the player's inventory and updates them. This is to prevent desyncs if a player
