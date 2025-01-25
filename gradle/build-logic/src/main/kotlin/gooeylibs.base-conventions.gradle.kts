@@ -1,6 +1,5 @@
 plugins {
     `java-library`
-    kotlin("jvm")
 
     id("org.cadixdev.licenser")
 

@@ -1,6 +1,7 @@
 plugins {
-    id("gooeylibs.loader-conventions")
     alias(libs.plugins.loom)
+
+    id("gooeylibs.loader-conventions")
 }
 
 dependencies {
@@ -8,6 +9,10 @@ dependencies {
     mappings(loom.officialMojangMappings())
 
     modImplementation(libs.fabric.loader)
+
+    implementation(libs.adventure.api)
+    implementation(libs.adventure.minimessage)
+    modImplementation(libs.adventure.platform.fabric)
 
     setOf(
         "fabric-lifecycle-events-v1",
@@ -31,7 +36,7 @@ tasks {
 
     remapJar {
         archiveBaseName.set("GooeyLibs-Fabric")
-        archiveVersion.set(version)
+        archiveVersion.set(project.version as String)
     }
 }
 
@@ -44,4 +49,9 @@ publishing {
             version = rootProject.version.toString()
         }
     }
+}
+
+modrinth {
+    loaders.set(listOf("fabric"))
+    uploadFile.set(tasks["remapJar"])
 }

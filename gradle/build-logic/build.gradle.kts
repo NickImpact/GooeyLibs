@@ -14,6 +14,7 @@ dependencies {
     implementation(libs.indra)
     implementation(libs.licenser)
     implementation(libs.shadow)
+    implementation(libs.minotaur)
 
     implementation(libs.neo.moddev)
 }

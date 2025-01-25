@@ -56,7 +56,7 @@ public class GooeyButton extends ButtonBase {
         protected Consumer<ButtonAction> onClick;
 
         public Builder display(@NotNull ItemStack display) {
-            this.display = display;
+            this.display = display.copy();
             return this;
         }
 

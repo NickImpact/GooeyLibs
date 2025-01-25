@@ -1,5 +1,5 @@
 plugins {
-    id("gooeylibs.base-conventions")
+    id("gooeylibs.loader-conventions")
     id("net.neoforged.moddev") version "1.0.11"
 }
 
@@ -19,6 +19,11 @@ dependencies {
 }
 
 tasks {
+    jar {
+        archiveBaseName.set("GooeyLibs-Neoforge")
+        archiveVersion.set(project.version as String)
+    }
+
     processResources {
         val version: String = rootProject.property("modVersion") as String
         inputs.property("version", version)
@@ -27,4 +32,9 @@ tasks {
             expand("version" to version)
         }
     }
+}
+
+modrinth {
+    loaders.set(listOf("neoforge"))
+    uploadFile.set(tasks["jar"])
 }

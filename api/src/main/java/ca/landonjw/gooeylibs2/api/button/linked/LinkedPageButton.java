@@ -24,6 +24,7 @@ import ca.landonjw.gooeylibs2.api.button.ButtonAction;
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import ca.landonjw.gooeylibs2.api.page.LinkedPage;
 import ca.landonjw.gooeylibs2.api.page.Page;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -74,6 +75,12 @@ public class LinkedPageButton extends GooeyButton {
         }
 
         @Override
+        public Builder onClick(@Nullable Runnable behaviour) {
+            super.onClick(behaviour);
+            return this;
+        }
+
+        @Override
         public Builder onClick(@Nullable Consumer<ButtonAction> behaviour) {
             super.onClick(behaviour);
             return this;
@@ -81,6 +88,12 @@ public class LinkedPageButton extends GooeyButton {
 
         public Builder linkType(@NotNull LinkType linkType) {
             this.linkType = linkType;
+            return this;
+        }
+
+        @Override
+        public <T> Builder with(DataComponentType<T> type, T value) {
+            super.with(type, value);
             return this;
         }
 

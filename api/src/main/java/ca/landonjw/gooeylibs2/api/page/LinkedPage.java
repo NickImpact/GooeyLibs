@@ -22,7 +22,11 @@ package ca.landonjw.gooeylibs2.api.page;
 import ca.landonjw.gooeylibs2.api.template.Template;
 import ca.landonjw.gooeylibs2.api.template.types.InventoryTemplate;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.PlainTextContents;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -173,33 +177,40 @@ public class LinkedPage extends GooeyPage {
 
     }
 
-    private Component replace(Component parent, Pattern pattern, String replacement) {
-        MutableComponent result;
-        if(parent instanceof MutableComponent stc) {
-            String content = stc.getString();
-            if (!content.isEmpty()) {
-                Matcher matcher = pattern.matcher(content);
-                if (matcher.find()) {
-                    content = matcher.replaceAll(replacement);
+    private Component replace(Component source, Pattern pattern, String replacement) {
+        return this.replaceRecursive(Component.empty(), source, pattern, replacement);
+    }
+
+    private Component replaceRecursive(MutableComponent result, Component target, Pattern pattern, String replacement) {
+        if (target instanceof MutableComponent mc) {
+            ComponentContents contents = mc.getContents();
+            if (contents instanceof PlainTextContents text) {
+                if (!text.text().isEmpty()) {
+                    String content = pattern.matcher(text.text()).replaceAll(replacement);
+                    MutableComponent component = Component.literal(content).withStyle(target.getStyle());
+
+                    for (Component child : target.getSiblings()) {
+                        this.replaceRecursive(component, child, pattern, replacement);
+                    }
+
+                    result.append(component);
+                } else {
+                    MutableComponent empty = target.plainCopy().withStyle(target.getStyle());
+                    for (Component child : target.getSiblings()) {
+                        this.replaceRecursive(empty, child, pattern, replacement);
+                    }
+
+                    result.append(empty);
                 }
-
-                result = Component.literal(content);
-                result.setStyle(parent.getStyle());
-            } else {
-                result = Component.literal(stc.getString());
-                result.setStyle(parent.getStyle());
             }
-        } else {
-            result = parent.copy();
-            result.setStyle(parent.getStyle());
-        }
 
-        List<MutableComponent> children = parent.getSiblings().stream()
-                .filter(c -> c instanceof MutableComponent)
-                .map(MutableComponent.class::cast)
-                .collect(Collectors.toList());
-        for(MutableComponent child : children) {
-            result.append(this.replace(child, pattern, replacement));
+        } else {
+            MutableComponent custom = target.plainCopy().withStyle(target.getStyle());
+            for (Component child : target.getSiblings()) {
+                this.replaceRecursive(custom, child, pattern, replacement);
+            }
+
+            result.append(custom);
         }
 
         return result;

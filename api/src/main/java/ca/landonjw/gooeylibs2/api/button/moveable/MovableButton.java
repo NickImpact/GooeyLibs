@@ -21,6 +21,7 @@ package ca.landonjw.gooeylibs2.api.button.moveable;
 
 import ca.landonjw.gooeylibs2.api.button.ButtonAction;
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -100,6 +101,12 @@ public class MovableButton extends GooeyButton implements Movable {
             if (behaviour != null) {
                 this.onDrop = (action) -> behaviour.run();
             }
+            return this;
+        }
+
+        @Override
+        public <T> GooeyButton.Builder with(DataComponentType<T> type, T value) {
+            super.with(type, value);
             return this;
         }
 

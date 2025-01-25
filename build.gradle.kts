@@ -3,7 +3,7 @@ plugins {
 }
 
 group = project.group
-version = "${project.property("modVersion")}-${project.property("minecraft")}"
+version = "${project.property("modVersion")}-1.21.x"
 
 val isSnapshot = project.property("snapshot")?.equals("true") ?: false
 if (isSnapshot) {
