@@ -33,11 +33,11 @@ public final class TaskManager {
     }
 
     public void tick() {
-        this.tasks.removeIf(task -> {
-            if (task == null) return true;
+        for (Task task : tasks) {
+            if (task == null) continue;
             task.tick();
-            return task.isExpired();
-        });
+        }
+        this.tasks.removeIf(task -> task == null || task.isExpired());
     }
 
     public static TaskManager getInstance() {
