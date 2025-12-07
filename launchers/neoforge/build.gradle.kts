@@ -38,3 +38,14 @@ modrinth {
     loaders.set(listOf("neoforge"))
     uploadFile.set(tasks["jar"])
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("neoforge") {
+            from(components["java"])
+            groupId = "ca.landonjw.gooeylibs"
+            artifactId = "neoforge"
+            version = rootProject.version.toString()
+        }
+    }
+}

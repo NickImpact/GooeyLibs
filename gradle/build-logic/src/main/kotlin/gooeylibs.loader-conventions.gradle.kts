@@ -18,5 +18,5 @@ modrinth {
     versionType.set("release")
 
     gameVersions.set(listOf("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4"))
-    debugMode.set(true)
+    debugMode.set(false)
 }
