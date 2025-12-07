@@ -19,21 +19,25 @@
 
 package ca.landonjw.gooeylibs2.api.tasks;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class TaskManager {
 
     private static TaskManager INSTANCE;
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new CopyOnWriteArrayList<>();
 
     void register(Task task) {
+        if (task == null) return;
         this.tasks.add(task);
     }
 
     public void tick() {
-        this.tasks.forEach(Task::tick);
-        this.tasks = this.tasks.stream().filter(task -> !task.isExpired()).collect(Collectors.toList());
+        this.tasks.removeIf(task -> {
+            if (task == null) return true;
+            task.tick();
+            return task.isExpired();
+        });
     }
 
     public static TaskManager getInstance() {
