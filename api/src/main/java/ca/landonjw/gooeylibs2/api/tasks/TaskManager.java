@@ -19,25 +19,43 @@
 
 package ca.landonjw.gooeylibs2.api.tasks;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class TaskManager {
 
     private static TaskManager INSTANCE;
-    private List<Task> tasks = new CopyOnWriteArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
+    private final Queue<Task> pending = new ConcurrentLinkedQueue<>();
 
     void register(Task task) {
         if (task == null) return;
-        this.tasks.add(task);
+        this.pending.add(task);
     }
 
     public void tick() {
-        this.tasks.removeIf(task -> {
-            if (task == null) return true;
+        Task newTask;
+        while ((newTask = pending.poll()) != null) {
+            tasks.add(newTask);
+        }
+
+        var iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            var task = iterator.next();
+            if (task == null) {
+                iterator.remove();
+                continue;
+            }
+
             task.tick();
-            return task.isExpired();
-        });
+
+            if (task.isExpired()) {
+                iterator.remove();
+            }
+        }
     }
 
     public static TaskManager getInstance() {
