@@ -1,10 +1,10 @@
 plugins {
     id("gooeylibs.base-conventions")
-    id("net.neoforged.moddev") version "1.0.11"
+    id("net.neoforged.moddev") version libs.versions.neo.moddev.get()
 }
 
 neoForge {
-    neoFormVersion = "1.21.1-20240808.144430"
+    neoFormVersion = "26.1.2-1"
 }
 
 repositories {

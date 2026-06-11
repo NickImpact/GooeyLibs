@@ -6,18 +6,17 @@ plugins {
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(loom.officialMojangMappings())
 
-    modImplementation(libs.fabric.loader)
+    implementation(libs.fabric.loader)
 
     implementation(libs.adventure.api)
     implementation(libs.adventure.minimessage)
-    modImplementation(libs.adventure.platform.fabric)
+    implementation(libs.adventure.platform.fabric)
 
     setOf(
         "fabric-lifecycle-events-v1",
         "fabric-command-api-v2"
-    ).forEach { modImplementation(fabricApi.module(it, "0.103.0+1.21.1")) }
+    ).forEach { implementation(fabricApi.module(it, "0.151.0+26.1.2")) }
 
     // API Inclusion
     api(project(":launchers:fabric:api-repack", configuration = "namedElements"))
@@ -34,7 +33,7 @@ tasks {
         }
     }
 
-    remapJar {
+    jar {
         archiveBaseName.set("GooeyLibs-Fabric")
         archiveVersion.set(project.version as String)
     }
@@ -53,5 +52,5 @@ publishing {
 
 modrinth {
     loaders.set(listOf("fabric"))
-    uploadFile.set(tasks["remapJar"])
+    uploadFile.set(tasks["jar"])
 }

@@ -1,10 +1,10 @@
 plugins {
     id("gooeylibs.loader-conventions")
-    id("net.neoforged.moddev") version "1.0.11"
+    id("net.neoforged.moddev") version libs.versions.neo.moddev.get()
 }
 
 neoForge {
-    version = "21.1.59"
+    version = "26.1.2.75"
     validateAccessTransformers = true
 
     val client = runs.create("client")

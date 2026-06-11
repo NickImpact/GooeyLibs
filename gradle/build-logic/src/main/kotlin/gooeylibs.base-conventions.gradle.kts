@@ -13,8 +13,8 @@ version = rootProject.version
 
 indra {
     javaVersions {
-        minimumToolchain(21)
-        target(21)
+        minimumToolchain(25)
+        target(25)
     }
 }
 
@@ -33,7 +33,7 @@ license {
     header(rootProject.file("HEADER.txt"))
     properties {
         this.set("name", "GooeyLibs")
-        this.set("years", "201x - 2024")
+        this.set("years", "201x - 2026")
     }
 }
 
